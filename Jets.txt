@@ -1,0 +1,5 @@
+CargoCarrier,USS Enterprise 1750D,100000,200000,576321
+Fighter,Bad Jet,100,10,23451
+Passenger,Twin Engine,75,250,23000
+CargoCarrier,Dark Star,3000,10000,357142
+Passenger,Helicopter,175,550,53000
