@@ -13,4 +13,10 @@ public class PassengerJet extends Jet implements PassengerPlane {
 		
 	}
 
+	@Override
+	public void PassengerBoarding() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

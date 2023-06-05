@@ -7,40 +7,110 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AirField {
-	private List<Jet> hangar;
+	private static List<Jet> hangar;
 
 	public List<Jet> readJets(String fileName) {
 		hangar = new ArrayList<>();
 
-		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets.txt"))) {
+		try (BufferedReader bufIn = new BufferedReader(new FileReader(fileName))) {
 			String line;
 
 			Jet jet = null;
-	          while ((line = bufIn.readLine()) != null) {
-					String[] jetRecord = line.split(",");
+			while ((line = bufIn.readLine()) != null) {
+				String[] jetRecord = line.split(",");
 
-					String type = jetRecord[0];   // typeOf
+				String type = jetRecord[0]; 
+				String model = jetRecord[1];
+				double speed = Integer.parseInt(jetRecord[2]);
+				double range = Integer.parseInt(jetRecord[3]);
+				double price = Integer.parseInt(jetRecord[4]);
 
-					String model = jetRecord[1];
-					int speed = Integer.parseInt(jetRecord[2]);
-					int range = Integer.parseInt(jetRecord[3]);
-					int price = Integer.parseInt(jetRecord[4]);
-					
-					if (type.equals("Passenger")) {
-						jet = new PassengerJet(model, speed, range, price);
-					} else if (type.equals("Cargo")) {
-						jet = new CargoJet(model, speed, range, price);
-					} else if (type.equals("Fighter")) {
-						jet = new FighterJet(model, speed, range, price);
-					}
-					hangar.add(jet);
-
-					// end specifics
+				if (type.equals("Passenger")) {
+					jet = new PassengerJet(model, speed, range, price);
+				} else if (type.equals("Cargo")) {
+					jet = new CargoJet(model, speed, range, price);
+				} else if (type.equals("Fighter")) {
+					jet = new FighterJet(model, speed, range, price);
 				}
-				
-		} catch (IOException e) {
+				hangar.add(jet);
+
+			}
+
+		} catch (
+
+		IOException e) {
 			System.err.println(e);
 		}
 		return hangar;
 	}
+
+	public static void flyAllJets() {
+
+		try {
+			for (Jet jet : hangar) {
+				double speed = jet.getSpeed();
+				double range = jet.getRange();
+				double time = range / speed();
+				System.out.println(jet + " Time in air remaining " + time + " Speed: " + speed + " Range");
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	private static void speed() {
+		for(Jet jet : hangar) {
+			System.out.println(jet.getSpeed());
+		}
+
+		
+	}
+
+	public static void fastestJet() {
+		for(Jet jet : hangar) {
+			System.out.println(jet.time);
+			
+		}
+	}
+
+	public static void range() {
+		for(Jet jet : hangar) {
+			System.out.println(jet.getRange());
+
+		;
+	}
+
+	public static void loadCargoJets1() {
+		
+
+	}
+
+	public static void dogFight() {
+		
+
+	}
+
+	public static void addJettoHangar() {
+		
+
+	}
+
+	public static void removeJetFromHangar() {
+		
+
+	}
+
+	public static void quit() {
+		System.out.println("Program has Ended");
+
+	}
+
+	public static void listHanger() {
+		
+
+	}
+
+	
 }
