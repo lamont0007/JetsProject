@@ -2,23 +2,21 @@ package com.skilldistillery.jets.entities;
 
 public class CargoJet extends Jet implements Cargo {
 
-	public CargoJet(String model, double range, double price, double speed) {
-		super(model, range, price, speed);
-		
+	public CargoJet(String model, double range, double price, double speed, String type) {
+		super(model, range, price, speed, type);
+
 	}
 
 	@Override
 	public void fly() {
-		System.out.println("Cargo Jet is flying");
-		
+		System.out.println("Cwannnnggg");
+
 	}
 
 	@Override
 	public void loadCargo() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Cargo Plane Loading Cargo");
+
 	}
-
-
 
 }

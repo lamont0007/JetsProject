@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AirField {
-	private static List<Jet> hangar;
+	private List<Jet> hangar;
+
+	public AirField() {
+		readJets("Jets.txt");
+	}
 
 	public List<Jet> readJets(String fileName) {
 		hangar = new ArrayList<>();
@@ -19,18 +23,18 @@ public class AirField {
 			while ((line = bufIn.readLine()) != null) {
 				String[] jetRecord = line.split(",");
 
-				String type = jetRecord[0]; 
+				String type = jetRecord[0];
 				String model = jetRecord[1];
 				double speed = Integer.parseInt(jetRecord[2]);
 				double range = Integer.parseInt(jetRecord[3]);
 				double price = Integer.parseInt(jetRecord[4]);
 
 				if (type.equals("Passenger")) {
-					jet = new PassengerJet(model, speed, range, price);
-				} else if (type.equals("Cargo")) {
-					jet = new CargoJet(model, speed, range, price);
+					jet = new PassengerJet(model, speed, range, price, type);
+				} else if (type.equals("CargoCarrier")) {
+					jet = new CargoJet(model, speed, range, price, type);
 				} else if (type.equals("Fighter")) {
-					jet = new FighterJet(model, speed, range, price);
+					jet = new FighterJet(model, speed, range, price, type);
 				}
 				hangar.add(jet);
 
@@ -44,14 +48,14 @@ public class AirField {
 		return hangar;
 	}
 
-	public static void flyAllJets() {
+	public void flyAllJets() {
 
 		try {
 			for (Jet jet : hangar) {
-				double speed = jet.getSpeed();
-				double range = jet.getRange();
-				double time = range / speed();
-				System.out.println(jet + " Time in air remaining " + time + " Speed: " + speed + " Range");
+				jet.fly();
+				double time = jet.getRange() / jet.getSpeed();
+				System.out.println(
+						jet.getModel() + " Time in air remaining " + time + " Speed: " + jet.getSpeed() + " Range");
 			}
 
 		} catch (Exception e) {
@@ -60,57 +64,87 @@ public class AirField {
 		}
 	}
 
-	private static void speed() {
-		for(Jet jet : hangar) {
-			System.out.println(jet.getSpeed());
-		}
+	public void fastestJet() {
+		double fastJet = 0;
+		Jet fastestJet = null;
 
-		
+		for (Jet jet : hangar) {
+
+			if (jet.getSpeed() > fastJet) {
+				fastJet = jet.getSpeed();
+				fastestJet = jet;
+
+			}
+
+		}
+		System.out.println(fastestJet);
 	}
 
-	public static void fastestJet() {
-		for(Jet jet : hangar) {
-			System.out.println(jet.time);
-			
-		}
-	}
-
-	public static void range() {
-		for(Jet jet : hangar) {
+	public void range() {
+		for (Jet jet : hangar) {
 			System.out.println(jet.getRange());
 
-		;
+		}
 	}
 
-	public static void loadCargoJets1() {
+	public void dogFight() {
+
+		for (Jet jet : hangar) {
+			if ( jet instanceof FighterJet) {
+				((FighterJet)jet).fight();
+			} 
+		}
+
+	}
+
+	public void addJettoHangar(String model, double speed, double range, double price, String type) {
+		Jet jet = new PassengerJet(model, speed, range, price, type);
+		hangar.add(jet);
+
+	}
+
+	public void removeJetFromHangar(int userChoice) {
 		
+		hangar.remove(userChoice);
+		System.out.println("Jet was Removed");
 
 	}
-
-	public static void dogFight() {
-		
-
+	public void listJetsToRemove() {
+		for (int i = 0; i < hangar.size(); i++) {
+			System.out.println(i + " " + hangar.get(i));
+		}
 	}
 
-	public static void addJettoHangar() {
-		
-
-	}
-
-	public static void removeJetFromHangar() {
-		
-
-	}
-
-	public static void quit() {
+	public void quit() {
 		System.out.println("Program has Ended");
+	}
+
+	public void listHanger() {
+		for (Jet jet : hangar) {
+			System.out.println(jet);
+		}
+	}
+
+	public void longestRangeJet() {
+		double longRangeJet = 0;
+		Jet longestRangeJet = null;
+		for (Jet jet : hangar) {
+			if (jet.getRange() > longRangeJet) {
+				longRangeJet = jet.getRange();
+				longestRangeJet = jet;
+			}
+		}
+		System.out.println(longestRangeJet);
+	}
+
+	public void loadCargoJets() {
+		for (Jet jet : hangar) {
+			if ( jet instanceof CargoJet) {
+				((CargoJet)jet).loadCargo();
+			} 
+
+		}
 
 	}
 
-	public static void listHanger() {
-		
-
-	}
-
-	
 }

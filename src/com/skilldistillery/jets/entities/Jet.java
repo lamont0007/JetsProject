@@ -5,18 +5,31 @@ public abstract class Jet {
 	private double range;
 	private double price;
 	private double speed;
+	private double time;
+	private String type;
+	
+	
 	
 
-	public Jet(String model, double range, double price, double speed) {
+	public Jet(String model, double range, double price, double speed, String type) {
 		this.model = model;
 		this.range = range;
 		this.price = price;
 		this.speed = speed;
-//		order matters in methods args
+		this.type = type;
+
 	}
+
 
 	public abstract void fly();
 
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getModel() {
 		return model;
 	}
@@ -49,7 +62,21 @@ public abstract class Jet {
 		this.speed = speed;
 	}
 
-	
-	
+	public double time() {
+		return range/speed;
+	}
+
+	public double getTime() {
+		return time;
+	}
+
+	public void setTime(double time) {
+		this.time = time;
+	}
+
+	@Override
+	public String toString() {
+		return "Jet [model =" + model + ", range= " + range + ", price= " + price + ", speed= " + speed + "]";
+	}
 
 }
